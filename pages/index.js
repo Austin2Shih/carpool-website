@@ -12,7 +12,7 @@ const Index = () => {
         user?.email &&
         <div>
           <div>Email: {user.email}</div>
-          <button onClick={logout('/')}>Logout</button>
+          <button onClick={logout('/login')}>Logout</button>
         </div> 
       }
       
