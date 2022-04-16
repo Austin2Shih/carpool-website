@@ -37,12 +37,14 @@ export async function getServerSideProps(context) {
 export default function Home(props) {
   const [message, setMessage] = useState("");
   const [chatMsg, setChatMsg] = useState("default");
+  const [user, logout] = useUser();
   async function handleMessageSend(e) {
     e.preventDefault();
     await fetch(`/api/send_message`, {
       method: 'POST',
       body: JSON.stringify({
           "_id" : `${chatID}`,
+          "userId": user.id,
           "message" : message
       }),
       headers: {

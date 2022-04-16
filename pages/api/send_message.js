@@ -22,7 +22,10 @@ export default async function handler(req, res) {
       "_id": ObjectID(chatID),
     },
     {
-      $set: { "message" : message }
+      $push: { "messages" : {
+        "id": req.userID,
+        "message": message,
+      }}
     },
     {
       upsert: true

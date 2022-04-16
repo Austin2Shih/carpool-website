@@ -13,12 +13,17 @@ export default function SignUp() {
 
     async function create_user(user) {
       const data = {
+        id: user.user.id,
         email: user.user.email,
         info : {
           first_name: null,
           last_name: null,
           car_desc: null,
         },
+        live: {
+          position: null,
+          state: null
+        }
       }
       await fetch("/api/create_user", {
         method: 'POST',
