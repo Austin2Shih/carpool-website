@@ -48,7 +48,7 @@ const Index = () => {
                     <button onClick={logout('/login')}>Logout</button>
                 </div>
             }
-
+            <button onClick={() => goToChat("625b42c3e6dc8ef690e611f")}>Message User</button>
         </div>
     )
 }
