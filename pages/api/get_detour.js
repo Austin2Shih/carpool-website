@@ -1,5 +1,6 @@
-function coordinateToLocation(latitude, longitude) {
+async function coordinateToLocation(latitude, longitude) {
     // https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&latlng=38.9855176,-77.5598243
+    let locationInfo = {};
     const load = async () => {
         try {
             const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
@@ -9,25 +10,34 @@ function coordinateToLocation(latitude, longitude) {
         }
     };
 
-    load();
+    const output = await load().then(
+        () => locationInfo.results.formatted_address
+    )
 
-    return locationInfo.results.formatted_address
+    return output
 }
 
-function getLocation() {
-    coordLocation = {};
+async function getLocation() {
+    let coordLocation = {};
     const load = async () => {
         try {
-            const res = await fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
+            const res = await fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA', {
+                method: 'POST'
+            });
             coordLocation = await res.json();
+            console.log(coordLocation)
         } catch(err) {
             console.error(err);
         }
     };
 
-    load();
+    const output = await load().then(
+        () => coordinateToLocation(coordLocation.location.lat, coordLocation.location.lng)
+    )
 
-    return coordinateToLocation(coordLocation.location.lat, coordLocation.location.lng)
+    console.log(output)
+
+    return output
 }
 
 function getDetour(coordPickup, coordDestination1, coordDestination2) { // returns detour time in seconds

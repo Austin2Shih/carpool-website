@@ -4,6 +4,7 @@ import { ObjectID } from 'bson'
 import Pusher from 'pusher-js'
 import { useUser } from "../util/auth/useUser";
 import ChatMessages from "../components/ChatMessages";
+import Nav from "./nav.js"
 import styles from "../styles/chat.module.css"
 // Initializing Pusher
 var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -112,6 +113,7 @@ export default function Chat(props) {
           </input>
           <input type="submit"></input>
         </form>
+        <Nav />
     </div>
   )
 }

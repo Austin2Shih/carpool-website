@@ -8,9 +8,9 @@ import Nav from "./nav.js"
 
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
+import { route } from 'next/dist/server/router';
 
 const Index = () => {
-
     const { user, logout } = useUser();
     const router = useRouter();
 
@@ -47,6 +47,22 @@ const Index = () => {
     }
     let locations = {};
 
+    async function submitDriver() {
+        const res = await fetch('/api/update_live', {
+            method: 'POST',
+            body: JSON.stringify({
+                "email": user.email,
+                "destStr": searchTerm,
+                "state": "driving"
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+
+        router.push('/drive')
+    }
+
     const load = async () => {
         try {
             const res = await fetch('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + searchTerm + '&types=geocode&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
@@ -58,7 +74,7 @@ const Index = () => {
 
     return (
         <div className={styles.container}>
-            <iframe className={styles.map} src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&q=Davis+CA" allowFullScreen></iframe>
+            <iframe className={styles.map} src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&q=Davis+CA' allowFullScreen></iframe>
 
             <div className={styles.search}>
                 <FaSearch className={styles.icon} />
@@ -74,6 +90,10 @@ const Index = () => {
                     }}
                 />
             </div>
+
+            <button className={styles.driver} onClick={submitDriver}>
+                I'm Driving
+            </button>
 
             {
                 locations?.predictions &&

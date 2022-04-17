@@ -46,3 +46,18 @@
     height: 100%;
     padding-left: 1em;
 }
+
+.driver {
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    top: 13em;
+    left: 40vw;
+    width: 7em;
+    height: 2em;
+    padding-left: 0.9em;
+    padding-top: 0.3em;
+    background-color: lavender;
+    border: 2px solid purple;
+    border-radius: 25px;
+}
