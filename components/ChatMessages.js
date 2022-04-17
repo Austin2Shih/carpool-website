@@ -1,6 +1,6 @@
 export default function ChatMessages(props) {
-    const data = props.data
-    const messages = data.messages
+    const messages = props.data
+    
     return (
         <div>
             {JSON.stringify(messages)}

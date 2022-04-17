@@ -38,7 +38,7 @@ export async function getServerSideProps(context) {
 
 export default function Chat(props) {
   const [message, setMessage] = useState("");
-  const [chat, setChat] = useState(<chatMessages data={props.data.messages}></chatMessages>);
+  const [chat, setChat] = useState(<ChatMessages data={props.data.messages}></ChatMessages>);
   const {user, logout} = useUser();
   
   async function handleMessageSend(e) {
@@ -47,7 +47,7 @@ export default function Chat(props) {
       method: 'POST',
       body: JSON.stringify({
           "_id" : `${chatID}`,
-          "userId": user.id,
+          "userId": user.mongoData._id,
           "message" : message
       }),
       headers: {
@@ -61,6 +61,7 @@ export default function Chat(props) {
   useEffect(() => {
     if (!bound) {
         channel.bind(`new-message-${chatID}`, async () => {
+          console.log("NEW MESSAGE")
             await fetch(`/api/get_chat_by_id`, {
                 method: 'POST',
                 body: JSON.stringify({

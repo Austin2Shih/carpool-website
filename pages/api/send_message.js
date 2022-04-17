@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     },
     {
       $push: { "messages" : {
-        "id": req.userID,
+        "id": data.userId,
         "message": message,
       }}
     },
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       upsert: true
     }
     ).then(async () => {
-      const res = await pusher.trigger('carpool-app', `new-message-${chatID}`, {}).then((r) => {
+      await pusher.trigger('carpool-app', `new-message-${chatID}`, {}).then((r) => {
     }).catch((error) => {
       console.log(error)
     })

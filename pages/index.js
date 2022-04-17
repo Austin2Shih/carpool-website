@@ -8,12 +8,12 @@ const Index = () => {
   const { chatLink, setChatLink } = useState()
   const router = useRouter();
 
-  async function goToChat() {
+  async function goToChat(id2) {
       const chatID = await fetch('/api/get_chat', {
         method: 'POST',
         body: JSON.stringify({
-            id1: "625b42c3e6dc8ef690e611fe",
-            id2: "625b4313e6dc8ef690e611ff"
+            id1: user.mongoData._id,
+            id2: id2
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -34,7 +34,7 @@ const Index = () => {
           <button onClick={logout('/login')}>Logout</button>
         </div> 
       }
-      <button onClick={goToChat}>Message User</button>
+      <button onClick={() => goToChat("625b42c3e6dc8ef690e611f")}>Message User</button>
     </div>
   )
 }
