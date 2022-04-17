@@ -47,16 +47,39 @@
     padding-left: 1em;
 }
 
-.driver {
+.buttons {
     position: absolute;
+    flex-direction: row;
+    width: 25em;
+    height: 3em;
+    top: 15em;
+    left: 50vw;
+    margin-left: -8em;
+    justify-items: space-evenly;
+    align-content: center;
+}
+
+.driver {
     justify-content: center;
     align-content: center;
-    top: 13em;
-    left: 40vw;
-    width: 7em;
+    width: 10em;
     height: 2em;
-    padding-left: 0.9em;
+    padding-left: 0.8em;
     padding-top: 0.3em;
+    margin: 1em;
+    background-color: lavender;
+    border: 2px solid purple;
+    border-radius: 25px;
+}
+
+.walker {
+    justify-content: center;
+    align-content: center;
+    width: 10em;
+    height: 2em;
+    padding-left: 0.8em;
+    padding-top: 0.3em;
+    margin: 1em;
     background-color: lavender;
     border: 2px solid purple;
     border-radius: 25px;

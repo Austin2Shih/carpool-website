@@ -8,6 +8,7 @@ let bound = false
 function Drive() {
     const { user } = useUser();
     const [pedestrian, setPedestrian] = useState(null)
+    const [str, setStr] = useState("")
     useEffect(() => {
         if (!bound && user?.email) {
             const interval = setInterval(async () => {
@@ -24,6 +25,9 @@ function Drive() {
                         "Content-type": "application/json; charset=UTF-8"
                         }
                     })
+                    start1 = start1.replaceAll(' ','+');
+                    setStr(`https://www.google.com/maps/embed/v1/directions?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&origin=${start1}&destination=${user.mongoData.live.destination}&avoid=tolls`)
+                    console.log(str)
                     const r = await response.json();
                     setPedestrian(r)
                     await fetch('/api/notify_pedestrian', {
@@ -35,17 +39,27 @@ function Drive() {
                         "Content-type": "application/json; charset=UTF-8"
                         }
                     })
+                } else {
+                    setStr(`https://www.google.com/maps/embed/v1/directions?
+                            key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA
+                            &origin=${start1}
+                            &destination=${user.mongoData.live.destination}
+                            &avoid=tolls&waypoints=${pedestrian.live.position.replaceAll(' ', '+')}|${pedestrian.live.destination}`)
                 }
             }, 5000);
             bound = true;
         }
-    },[user])
+    },[user, pedestrian])
 
     return (
         <div className={styles.main}>
             <div className={styles.nav} >
                 <div className={styles.flexColumn}>
                     {JSON.stringify(pedestrian)}
+                    {
+                        user?.mongoData && 
+                        <iframe className={styles.map} src={str} allowFullScreen></iframe>
+                    }
                 </div>
                 <Nav/>
             </div>
