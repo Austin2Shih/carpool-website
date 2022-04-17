@@ -36,7 +36,8 @@ export default function Walk() {
                 })
             }, 5000);
 
-            channel.bind(`found-driver-${user.email}`, async (data) => {
+            channel.bind(`found-driver`, async (data) => {
+                console.log("HIIIIII")
                 setDriver(JSON.stringify(data))
             }) 
             bound = true;

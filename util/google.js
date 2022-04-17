@@ -1,5 +1,5 @@
 export async function getCoordsToString(lat, lon) {
-    const res = await fetch(`${process.env.VERCEL_URL}/api/coordsToString`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/coordsToString`, {
         method: 'POST',
         body: JSON.stringify({
             "latitude": lat,
@@ -20,7 +20,7 @@ export async function getLocation() {
 }
 
 export async function getDistance(str1, str2) {
-    const res = await fetch(`${process.env.VERCEL_URL}/api/getDistance`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_VERCEL_URL}/api/getDistance`, {
         method: 'POST',
         body: JSON.stringify({
             "start": str1,
