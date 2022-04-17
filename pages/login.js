@@ -3,6 +3,8 @@ import { useRouter } from "next/router";
 import {auth} from '../util/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
+import styles from '../styles/Home.module.css';
+
 
 export default function FirebaseAuth() {
   const [email, setEmail] = useState("");
@@ -25,7 +27,8 @@ export default function FirebaseAuth() {
   }
 
   return (
-    <div>
+    <div className={styles.main}>
+      <img src="../assets/logo.png"></img>
         {error}
         <form onSubmit={handleLogin}>
           <label>Email</label>
