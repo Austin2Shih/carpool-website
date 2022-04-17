@@ -1,4 +1,4 @@
-import {getRatio} from '../../util/google.js'
+import {getRatio, getCoordsToString} from '../../util/google.js'
 import clientPromise from '../../util/mongodb';
 
 export default async function handler(req, res) {
