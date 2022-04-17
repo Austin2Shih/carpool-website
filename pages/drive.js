@@ -42,11 +42,14 @@ function Drive() {
     },[user])
 
     return (
-        <div className={styles.container}>
-            {JSON.stringify(pedestrian)}
-            <Nav />
+        <div className={styles.main}>
+            <div className={styles.nav}>
+                {JSON.stringify(pedestrian)}
+                <Nav/>
+            </div>
         </div>
     )
+
 }
 
 export default Drive

@@ -1,0 +1,16 @@
+.main {
+    min-height: 100vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2A303A;
+}
+
+.nav {
+    position: absolute;
+    justify-content: center;
+    align-content: center;
+    bottom: 0;
+  }
