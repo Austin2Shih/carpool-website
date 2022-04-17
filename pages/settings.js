@@ -63,6 +63,8 @@ const Settings = () => {
           </div>
           <button className={styles.submit} type="submit">Confirm changes</button>
         </form>
+
+        <button className={styles.submit} onClick={logout('/login')}>Logout</button>
     </div>
   );
 }

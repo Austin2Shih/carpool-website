@@ -107,14 +107,15 @@ const Index = () => {
                     }}
                 />
             </div>
+            <div className={styles.buttons}>
+                <button className={styles.driver} onClick={submitDriver}>
+                    {"I'm Driving"}
+                </button>
 
-            <button className={styles.driver} onClick={submitDriver}>
-                {"I'm Driving"}
-            </button>
-
-            <button className={styles.walker} onClick={submitWalker}>
-                {"I'm Walking"}
-            </button>
+                <button className={styles.walker} onClick={submitWalker}>
+                    {"I'm Walking"}
+                </button>
+            </div>
 
             {
                 locations?.predictions &&
@@ -126,14 +127,6 @@ const Index = () => {
                             </div>
                         )
                     })}
-                </div>
-            }
-
-            {
-                user?.email &&
-                <div>
-                    <div>Email: {user.email}</div>
-                    <button onClick={logout('/login')}>Logout</button>
                 </div>
             }
             <Nav />
