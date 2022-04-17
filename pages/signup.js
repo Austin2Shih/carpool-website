@@ -21,7 +21,8 @@ export default function SignUp() {
         },
         live: {
           position: null,
-          state: null
+          state: null,
+          destination: null
         }
       }
       await fetch("/api/create_user", {
