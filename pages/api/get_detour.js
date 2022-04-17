@@ -1,75 +1,26 @@
-async function coordinateToLocation(latitude, longitude) {
-    // https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&latlng=38.9855176,-77.5598243
-    let locationInfo = {};
-    const load = async () => {
-        try {
-            const res = await fetch('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
-            locationInfo = await res.json();
-        } catch(err) {
-            console.error(err);
+import {getRatio} from '../../util/google.js'
+import clientPromise from '../../util/mongodb';
+
+export default async function handler(req, res) {
+    const data = req.body
+    const start1 = data.start1
+    const dest1 = data.dest1
+    const client = await clientPromise
+    const db = client.db("users")
+    const users = await db.collection("users").find({
+        "live.state": { $eq: "walking"}
+    }).toArray()
+    let maxRatio = 0;
+    let maxUserIndex = 0;
+    for (let i = 0; i < users.length; i++) {
+        const start2 = await getCoordsToString(users[i].live.position.lat, users[i].live.position.lng)
+        const dest2 = users[i].live.destination
+        const ratio = await getRatio(start1, dest1, start2, dest2)
+        if (ratio > maxRatio) {
+            maxRatio = ratio;
+            maxUserIndex = i;
         }
-    };
+    }
 
-    const output = await load().then(
-        () => locationInfo.results.formatted_address
-    )
-
-    return output
-}
-
-async function getLocation() {
-    let coordLocation = {};
-    const load = async () => {
-        try {
-            const res = await fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA', {
-                method: 'POST'
-            });
-            coordLocation = await res.json();
-            console.log(coordLocation)
-        } catch(err) {
-            console.error(err);
-        }
-    };
-
-    const output = await load().then(
-        () => coordinateToLocation(coordLocation.location.lat, coordLocation.location.lng)
-    )
-
-    console.log(output)
-
-    return output
-}
-
-function getDetour(coordPickup, coordDestination1, coordDestination2) { // returns detour time in seconds
-    let origin = getLocation();
-    let pickup = coordinateToLocation(coordPickup[0], coordPickup[1]);
-    let destination1 = coordinateToLocation(coordDestination1[0], coordDestination1[1]);
-    let destination2 = coordinateToLocation(coordDestination2[0], coordDestination2[1]);
-
-    let originToPickup = {};
-    let pickupToDestination1 = {};
-    let destination1ToDestination2 = {};
-    let orginToDestination2 = {};
-
-    const load = async () => {
-        try {
-            const res = await fetch('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origin + '&destinations=' + pickup + '&units=imperial&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
-            originToPickup = await res.json();
-            const res2 = await fetch('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + pickup + '&destinations=' + destination1 + '&units=imperial&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
-            pickupToDestination1 = await res2.json();
-            const res3 = await fetch('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + destination1 + '&destinations=' + destination2 + '&units=imperial&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
-            destination1ToDestination2 = await res3.json();
-            const res4 = await fetch('https://maps.googleapis.com/maps/api/distancematrix/json?origins=' + origin + '&destinations=' + destination2 + '&units=imperial&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
-            orginToDestination2 = await res4.json();
-        } catch(err) {
-            console.error(err);
-        }
-    };
-
-    load();
-
-    let t1 = originToPickup.rows.elements.duration[value] + pickupToDestination.rows.elements.duration[value] + destination1ToDestination2.rows.elements.duration[value];
-    let t2 = orginToDestination.rows.elements.duration[value];
-
-    return t1 - t2;
+    res.json(users[maxUserIndex]);
 }
