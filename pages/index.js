@@ -78,9 +78,9 @@ const Index = () => {
             {
                 locations?.predictions &&
                 <div className={styles.locationsList}>
-                    {locations.predictions.map(location => {
+                    {locations.predictions.map((location, index) => {
                         return (
-                            <div>
+                            <div key={index}>
                                 <h2>{location.description}</h2>
                             </div>
                         )

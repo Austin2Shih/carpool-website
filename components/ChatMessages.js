@@ -7,8 +7,8 @@ export default function ChatMessages(props) {
     return (
         <div className={styles.super_container}>
             {
-                messages.map((msg) => {
-                    return (<div className={styles.container}>
+                messages.map((msg, index) => {
+                    return (<div key={index} className={styles.container}>
                         <div className={styles.namebox}>
                             <p>{msg.name}</p>
                         </div>
