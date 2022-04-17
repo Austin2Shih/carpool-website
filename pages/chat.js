@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import clientPromise from '../util/mongodb';
 import { ObjectID } from 'bson'
 import Pusher from 'pusher-js'
+import { useUser } from "../util/auth/useUser";
+import ChatMessages from "../components/ChatMessages";
 
 // Initializing Pusher
 var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -34,10 +36,11 @@ export async function getServerSideProps(context) {
 }
 
 
-export default function Home(props) {
+export default function Chat(props) {
   const [message, setMessage] = useState("");
-  const [chatMsg, setChatMsg] = useState("default");
-  const [user, logout] = useUser();
+  const [chat, setChat] = useState(<chatMessages data={props.data.messages}></chatMessages>);
+  const {user, logout} = useUser();
+  
   async function handleMessageSend(e) {
     e.preventDefault();
     await fetch(`/api/send_message`, {
@@ -58,7 +61,7 @@ export default function Home(props) {
   useEffect(() => {
     if (!bound) {
         channel.bind(`new-message-${chatID}`, async () => {
-            await fetch(`/api/get_message`, {
+            await fetch(`/api/get_chat_by_id`, {
                 method: 'POST',
                 body: JSON.stringify({
                     "_id" : `${chatID}`,
@@ -66,10 +69,10 @@ export default function Home(props) {
                 headers: {
                     "Content-type": "application/json; charset=UTF-8"
                 }
-            }).then(async (response) => {
-                await response.json().then((res) => {
-                    setChatMsg(res.message)
-                })
+            }).then(async(response) => {
+                const r = await response.json()
+                console.log(r)
+                setChat(<ChatMessages data={r.messages}></ChatMessages>)
             })
         }) 
                    
@@ -88,7 +91,7 @@ export default function Home(props) {
           </input>
           <input type="submit"></input>
         </form>
-        {`Message: ${chatMsg}`}
+        {chat}
     </div>
   )
 }

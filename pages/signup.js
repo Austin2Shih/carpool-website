@@ -13,7 +13,6 @@ export default function SignUp() {
 
     async function create_user(user) {
       const data = {
-        id: user.user.id,
         email: user.user.email,
         info : {
           first_name: null,
