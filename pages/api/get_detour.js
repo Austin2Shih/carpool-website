@@ -15,7 +15,7 @@ function coordinateToLocation(latitude, longitude) {
 }
 
 function getLocation() {
-    coordLocation = [];
+    coordLocation = {};
     const load = async () => {
         try {
             const res = await fetch('https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
@@ -36,10 +36,10 @@ function getDetour(coordPickup, coordDestination1, coordDestination2) { // retur
     let destination1 = coordinateToLocation(coordDestination1[0], coordDestination1[1]);
     let destination2 = coordinateToLocation(coordDestination2[0], coordDestination2[1]);
 
-    let originToPickup = [];
-    let pickupToDestination1 = [];
-    let destination1ToDestination2 = [];
-    let orginToDestination2 = [];
+    let originToPickup = {};
+    let pickupToDestination1 = {};
+    let destination1ToDestination2 = {};
+    let orginToDestination2 = {};
 
     const load = async () => {
         try {
