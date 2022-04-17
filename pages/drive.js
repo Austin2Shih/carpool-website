@@ -25,9 +25,7 @@ function Drive() {
                         "Content-type": "application/json; charset=UTF-8"
                         }
                     })
-                    start1 = start1.replaceAll(' ','+');
-                    setStr(`https://www.google.com/maps/embed/v1/directions?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&origin=${start1}&destination=${user.mongoData.live.destination}&avoid=tolls`)
-                    console.log(str)
+                    setStr(`https://www.google.com/maps/embed/v1/directions?key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA&origin=${start1.replaceAll('+', '%2B')}&destination=${user.mongoData.live.destination}&avoid=tolls`)
                     const r = await response.json();
                     setPedestrian(r)
                     await fetch('/api/notify_pedestrian', {
@@ -42,9 +40,9 @@ function Drive() {
                 } else {
                     setStr(`https://www.google.com/maps/embed/v1/directions?
                             key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA
-                            &origin=${start1}
+                            &origin=${start1.replaceAll('+', '%2B')}
                             &destination=${user.mongoData.live.destination}
-                            &avoid=tolls&waypoints=${pedestrian.live.position.replaceAll(' ', '+')}|${pedestrian.live.destination}`)
+                            &avoid=tolls&waypoints=${pedestrian.live.position.replaceAll('+', '%2B')}|${pedestrian.live.destination}`)
                 }
             }, 5000);
             bound = true;

@@ -10,7 +10,7 @@ export async function getCoordsToString(lat, lon) {
         }
     })
     const r = await res.json()
-    return r.compound_code;
+    return r.global_code;
 }
 
 export async function getLocation() {
