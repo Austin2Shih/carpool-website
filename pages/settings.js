@@ -32,27 +32,36 @@ const Settings = () => {
     <div className={styles.main}>
         <form onSubmit={handleSetInfo} className={styles.flexColumn}>
           <label>First Name</label>
-          <input 
-            onChange={(e) => setFirstName(e.target.value)} 
-            value={firstName}
-            type="text" 
-            placeholder="First Name">
-          </input>
+          <div className={styles.fieldBg}>
+            <input
+              className={styles.field}
+              onChange={(e) => setFirstName(e.target.value)} 
+              value={firstName}
+              type="text" 
+              placeholder="First Name">
+            </input>
+          </div>
           <label>Last Name</label>
-          <input 
-            onChange={(e) => setLastName(e.target.value)} 
-            value={lastName}
-            type="text" 
-            placeholder="Last Name">
-          </input>
+          <div className={styles.fieldBg}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setLastName(e.target.value)} 
+              value={lastName}
+              type="text" 
+              placeholder="Last Name">
+            </input>
+          </div>
           <label>Car Description</label>
-          <input 
-            onChange={(e) => setCarInfo(e.target.value)} 
-            value={carInfo}
-            type="text" 
-            placeholder="A short description of your car">
-          </input>
-          <input type="submit"></input>
+          <div className={styles.fieldBg}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setCarInfo(e.target.value)} 
+              value={carInfo}
+              type="text" 
+              placeholder="Car description">
+            </input>
+          </div>
+          <button className={styles.submit} type="submit">Confirm changes</button>
         </form>
     </div>
   );

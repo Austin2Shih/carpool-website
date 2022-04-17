@@ -1,29 +1,14 @@
-.super_container {
-    
-}
-
-.container {
-    width: 96%;
-    height: auto;
-    margin-left: 2%;
-    position: relative;
-}
-
 .text_box{
     padding-left: 1.2rem;
     padding-right: 1.2rem;
-    border-style: solid;
-    border-radius: 1rem;
-    background-color: turquoise;
+    border-radius: 10px;
+    border: 2px solid purple;
+    background-color: rgb(202, 188, 239);
     width: auto;
     padding-top: -1rem;
     padding-bottom: -1rem;
     margin-top: -0.8rem;
     margin-bottom: -1rem;
-}
-
-.name{
-    
 }
 
 .namebox{

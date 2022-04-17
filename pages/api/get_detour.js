@@ -30,7 +30,7 @@ function getLocation() {
     return coordinateToLocation(coordLocation.location.lat, coordLocation.location.lng)
 }
 
-function getDetour(coordPickup, coordDestination1, coordDestination2) { // returns detour time in seconds
+export default function getDetour(coordPickup, coordDestination1, coordDestination2) { // returns detour time in seconds
     let origin = getLocation();
     let pickup = coordinateToLocation(coordPickup[0], coordPickup[1]);
     let destination1 = coordinateToLocation(coordDestination1[0], coordDestination1[1]);

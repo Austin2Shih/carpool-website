@@ -10,7 +10,6 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link';
 
 const Index = () => {
-
     const { user, logout } = useUser();
     const router = useRouter();
 
@@ -45,6 +44,7 @@ const Index = () => {
         })
         router.push(`/chat?id=${chatID}`)
     }
+
     let locations = {};
 
     const load = async () => {
@@ -95,10 +95,6 @@ const Index = () => {
                     <button onClick={logout('/login')}>Logout</button>
                 </div>
             }
-            <button onClick={() => goToChat('austinhshih@gmail.com')}>Message User</button>
-            <button>
-                <Link href="/settings">Change Settings</Link>
-            </button>
             <Nav />
         </div>
     )
