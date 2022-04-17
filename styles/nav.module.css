@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lavender;
+    margin-top: 0;
+    width: 100%;
+    padding-left: 5em;
+    padding-right: 5em;
+    z-index: 999;
+    box-shadow: 5px 5px 0 0 rgba(0, 0, 0, 0.7);
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style: none;
+    text-align: left;
+    width: 100vw;
+}
+
+.listItem {
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.listItem:after {
+    display: block;
+    content: '';
+    border-bottom: 3px solid black; 
+    transform: scaleX(0);  
+    transition: transform 250ms ease-in-out;
+}
+
+.listItem:hover:after {
+    transform: scaleX(1);
+}

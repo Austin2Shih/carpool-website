@@ -10,24 +10,39 @@
     height: 100%;
 }
 
+.profile {
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    width: 2em;
+    height: 2em;
+}
+
 .search {
     position: absolute;
     flex-direction: row;
     width: 25em;
     height: 2em;
-    top: 2em;
+    top: 10em;
     left: 50vw;
     margin-left: -12.5em;
     background-color: lavender;
     border: 2px solid purple;
     border-radius: 25px;
-  }
+}
+
+.icon {
+    padding-left: 0.5em;
+    height: 100%;
+    width: 1.5em;
+}
   
-  .searchBar {
+.searchBar {
+    position: absolute;
     border: none;
     background: none;
     outline: none;
-    width: 20em;
+    width: 90%;
+    height: 100%;
     padding-left: 1em;
-    padding-bottom: 5px;
-  }
+}
