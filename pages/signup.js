@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../util/firebase';
 import styles from '../styles/Home.module.css';
-
+import Image from 'next/image';
+import logo from '../assets/logo.png'
 
 export default function SignUp() {
   console.log("AUTH", auth)
@@ -49,10 +50,14 @@ export default function SignUp() {
     };
 
   return (
-    <div classname={styles.main}>
-      <h1 classname={styles.h1}>Sign up!</h1>
+    <div className={styles.main}>
+      <h1>Sign up!</h1>
+      <Image 
+        src={logo} 
+        width={200}
+        height={200}/>
       {error}
-      <form onSubmit={handleSignUp}>
+      <form className={styles.flexColumn} onSubmit={handleSignUp}>
           <label>Email</label>
           <input 
             onChange={(e) => setEmail(e.target.value)} 
@@ -74,7 +79,7 @@ export default function SignUp() {
             type="password" 
             placeholder="Password">
           </input>
-          <input type="submit"></input>
+          <input className = {styles.input}  type="submit"></input>
         </form>
     </div>
 
