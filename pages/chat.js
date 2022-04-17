@@ -4,7 +4,7 @@ import { ObjectID } from 'bson'
 import Pusher from 'pusher-js'
 import { useUser } from "../util/auth/useUser";
 import ChatMessages from "../components/ChatMessages";
-
+import styles from "../styles/chat.module.css"
 // Initializing Pusher
 var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
   cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER,
@@ -38,16 +38,17 @@ export async function getServerSideProps(context) {
 
 export default function Chat(props) {
   const [message, setMessage] = useState("");
-  const [chat, setChat] = useState(<ChatMessages data={props.data.messages}></ChatMessages>);
+  const [chat, setChat] = useState(<ChatMessages data={props.data}></ChatMessages>);
   const {user, logout} = useUser();
   
   async function handleMessageSend(e) {
     e.preventDefault();
+    setMessage("")
     await fetch(`/api/send_message`, {
       method: 'POST',
       body: JSON.stringify({
           "_id" : `${chatID}`,
-          "userId": user.mongoData._id,
+          "name": user.mongoData.info.first_name,
           "message" : message
       }),
       headers: {
@@ -56,12 +57,21 @@ export default function Chat(props) {
     })
   } 
 
+  function getOtherName () {
+    let otherName;
+      if (user.mongoData._id == props.data.user1.id) {
+        otherName = props.data.user2.name
+      } else {
+        otherName = props.data.user1.name
+      }
+      return otherName
+  }
+
   const chatID = props.data._id
 
   useEffect(() => {
     if (!bound) {
         channel.bind(`new-message-${chatID}`, async () => {
-          console.log("NEW MESSAGE")
             await fetch(`/api/get_chat_by_id`, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -73,15 +83,25 @@ export default function Chat(props) {
             }).then(async(response) => {
                 const r = await response.json()
                 console.log(r)
-                setChat(<ChatMessages data={r.messages}></ChatMessages>)
+                setChat(<ChatMessages data={r}></ChatMessages>)
             })
         }) 
                    
         bound = true
     }
 }, [chatID])
+
   return (
-      <div>
+      <div className={styles.super_container}>
+        {
+          user?.email &&
+          <div>
+            <h3>{`Chat with ${getOtherName()}`}</h3>
+          </div>
+        }
+        <div className={styles.container}>
+          {chat}
+        </div>
         <form onSubmit={handleMessageSend}>
           <label>Message</label>
           <input 
@@ -92,7 +112,6 @@ export default function Chat(props) {
           </input>
           <input type="submit"></input>
         </form>
-        {chat}
     </div>
   )
 }

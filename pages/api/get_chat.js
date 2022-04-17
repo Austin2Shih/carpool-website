@@ -5,10 +5,19 @@ export default async function handler(req, res) {
     const db = client.db("chats")
     const body = req.body
     const key = [body.id1, body.id2]
+
     key.sort()
     
     const insertData = {
         key: key,
+        user1: {
+            id: body.id1,
+            "name": body.name1
+        },
+        user2: {
+            id: body.id2,
+            "name": body.name2
+        },
         messages: []
     }
 

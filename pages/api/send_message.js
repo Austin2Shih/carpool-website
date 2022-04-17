@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     },
     {
       $push: { "messages" : {
-        "id": data.userId,
+        "name": data.name,
         "message": message,
       }}
     },
