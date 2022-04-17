@@ -5,7 +5,7 @@ import Pusher from 'pusher-js'
 import { useUser } from "../util/auth/useUser";
 import ChatMessages from "../components/ChatMessages";
 import { BsFillArrowUpCircleFill } from "react-icons/bs";
-import Nav from "./nav";
+import Nav from "../components/nav";
 import styles from "../styles/chat.module.css"
 // Initializing Pusher
 var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {

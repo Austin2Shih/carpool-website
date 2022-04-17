@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     let maxRatio = 0;
     let maxUserIndex = 0;
     for (let i = 0; i < users.length; i++) {
+        console.log(`USER AT ${i}`, users[i])
         const start2 = await getCoordsToString(users[i].live.position.lat, users[i].live.position.lng)
         const dest2 = users[i].live.destination
         const ratio = await getRatio(start1, dest1, start2, dest2)

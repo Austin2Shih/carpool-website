@@ -44,7 +44,7 @@ export default function SignUp() {
         .then(async (userCredential) => {
           create_user(userCredential)
           console.log("Success. The user is created in Firebase")
-          router.push("/settings");
+          setTimeout(() => {  router.push("/settings"); }, 6000);
         })
         .catch(error => {
           // An error occurred. Set error message to be displayed to user

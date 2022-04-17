@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { FaSearch } from "react-icons/fa"
 import { useState } from "react"
 
-import Nav from "./nav.js"
+import Nav from "../components/nav"
 
 import styles from '../styles/Home.module.css'
 import Link from 'next/link';
@@ -64,6 +64,22 @@ const Index = () => {
         router.push('/drive')
     }
 
+    async function submitWalker() {
+        const res = await fetch('/api/update_live', {
+            method: 'POST',
+            body: JSON.stringify({
+                "email": user.email,
+                "destStr": searchTerm,
+                "state": "walking"
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+
+        router.push('/walk')
+    }
+
     const load = async () => {
         try {
             const res = await fetch('https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + searchTerm + '&types=geocode&key=AIzaSyDIGTev3FnEsggSrZBojc214LfSLpMDxjA');
@@ -94,6 +110,10 @@ const Index = () => {
 
             <button className={styles.driver} onClick={submitDriver}>
                 {"I'm Driving"}
+            </button>
+
+            <button className={styles.walker} onClick={submitWalker}>
+                {"I'm Walking"}
             </button>
 
             {
