@@ -8,18 +8,18 @@
     align-items: center;
     background-color: #2A303A;
     color: #F1F1F1;
-  }
+}
   
-  .flexColumn {
+.flexColumn {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 15px;
-  }
+}
   
-  .input {
+.input {
     position: absolute;
     justify-content: center;
     align-items: center;
@@ -28,9 +28,9 @@
     outline: none;
     margin-left: 0.43rem;
     margin-top: 0.15rem;
-  }
+}
 
-  .input_submit {
+.input_submit {
     position: absolute;
     justify-content: center;
     align-items: center;
@@ -39,9 +39,9 @@
     outline: none;
     margin-left: 0.38rem;
     margin-top: 0.14rem;
-  }
+}
 
-  .button_container{
+.button_container {
     position: relative;
     justify-content: center;
     align-items: center;
@@ -49,18 +49,29 @@
     width: 4rem;
     height: 1.3rem;
     border-radius: 0.3rem;
-  }
+}
 
-  .input_border{
+.input_border {
     width: 13rem;
     background-color: lavender;
     border-radius: 25px;
-  }
+}
 
-  .field{
+.field {
     margin-left: 0.6rem;
     margin-bottom: 0.12rem;
     border: none;
     background: none;
     outline: none;
-  }
+}
+
+.fieldBg {
+  background-color: lavender;
+  border-radius: 10px;
+}
+
+.submit {
+  background-color: lavender;
+  border: 1px solid purple;
+  border-radius: 10px;
+}

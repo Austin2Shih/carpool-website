@@ -4,7 +4,8 @@ import { ObjectID } from 'bson'
 import Pusher from 'pusher-js'
 import { useUser } from "../util/auth/useUser";
 import ChatMessages from "../components/ChatMessages";
-import Nav from "./nav.js"
+import { BsFillArrowUpCircleFill } from "react-icons/bs";
+import Nav from "./nav";
 import styles from "../styles/chat.module.css"
 // Initializing Pusher
 var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
@@ -36,10 +37,9 @@ export async function getServerSideProps(context) {
   }
 }
 
-
 export default function Chat(props) {
   const [message, setMessage] = useState("");
-  const [chat, setChat] = useState(<ChatMessages data={props.data}></ChatMessages>);
+  const [chat, setChat] = useState(<ChatMessages className={styles.bubble} data={props.data}></ChatMessages>);
   const {user, logout} = useUser();
   
   async function handleMessageSend(e) {
@@ -84,7 +84,7 @@ export default function Chat(props) {
             }).then(async(response) => {
                 const r = await response.json()
                 console.log(r)
-                setChat(<ChatMessages data={r}></ChatMessages>)
+                setChat(<ChatMessages className={styles.bubble} data={r}></ChatMessages>)
             })
         }) 
                    
@@ -93,25 +93,27 @@ export default function Chat(props) {
 }, [chatID])
 
   return (
-      <div className={styles.super_container}>
+      <div className={styles.wrapper}>
         {
           user?.email &&
-          <div>
-            <h3>{`Chat with ${getOtherName()}`}</h3>
+          <div className={styles.header}>
+            <h1>{`${getOtherName()}`}</h1>
           </div>
         }
         <div className={styles.container}>
           {chat}
         </div>
         <form onSubmit={handleMessageSend}>
-          <label>Message</label>
-          <input 
-            onChange={(e) => setMessage(e.target.value)} 
-            value={message}
-            type="text" 
-            placeholder="Message">
-          </input>
-          <input type="submit"></input>
+          <div className={styles.message}>
+            <input
+              className={styles.messageBar}
+              onChange={(e) => setMessage(e.target.value)} 
+              value={message}
+              type="text" 
+              placeholder="Message...">
+            </input>
+            <button className={styles.send} type="submit">Send</button>
+          </div>
         </form>
         <Nav />
     </div>

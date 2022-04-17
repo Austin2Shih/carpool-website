@@ -45,6 +45,7 @@ const Index = () => {
         })
         router.push(`/chat?id=${chatID}`)
     }
+
     let locations = {};
 
     async function submitDriver() {
@@ -115,10 +116,6 @@ const Index = () => {
                     <button onClick={logout('/login')}>Logout</button>
                 </div>
             }
-            <button onClick={() => goToChat('austinhshih@gmail.com')}>Message User</button>
-            <button>
-                <Link href="/settings">Change Settings</Link>
-            </button>
             <Nav />
         </div>
     )
