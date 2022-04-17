@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../util/firebase';
+import styles from '../styles/Home.module.css';
+
 
 export default function SignUp() {
   console.log("AUTH", auth)
@@ -47,8 +49,8 @@ export default function SignUp() {
     };
 
   return (
-    <div>
-      <h1>Sign up!</h1>
+    <div classname={styles.main}>
+      <h1 classname={styles.h1}>Sign up!</h1>
       {error}
       <form onSubmit={handleSignUp}>
           <label>Email</label>
