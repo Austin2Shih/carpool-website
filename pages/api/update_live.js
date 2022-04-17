@@ -13,7 +13,7 @@ export default async function handler(req, res) {
       "email": email,
     },
     {
-      $set: { "live.position" : currPos, "live.state" : state, "live.car_desc" : destStr},
+      $set: { "live.position" : currPos, "live.state" : state, "live.destination" : destStr},
     },
     {
       upsert: true

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import {auth} from '../util/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
-import styles from '../styles/login.module.css';
+import styles from '../styles/form.module.css';
 import Image from 'next/image'
 import logo from '../assets/logo.png'
 
@@ -36,20 +36,29 @@ export default function FirebaseAuth() {
         width={200}
         height={200}/>
         {error}
+        {}
         <form onSubmit={handleLogin} className={styles.flexColumn}>
-          <input 
-            onChange={(e) => setEmail(e.target.value)} 
-            value={email}
-            type="email" 
-            placeholder="Email">
-          </input>
-          <input 
-            onChange={(e) => setPassword(e.target.value)} 
-            value={password}
-            type="password" 
-            placeholder="Password">
-          </input>
-          <input className = {styles.input} type="submit"></input>
+          <div className={styles.input_border}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              type="email" 
+              placeholder="Email">
+            </input>
+          </div>
+          <div className={styles.input_border}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setPassword(e.target.value)} 
+              value={password}
+              type="password" 
+              placeholder="Password">
+            </input>
+          </div>
+          <div className={styles.button_container}>
+            <button className = {styles.input} type="submit">Log in</button>
+          </div>
         </form>
         <p>
           <Link href="/signup">

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import withAuth from "../util/auth/withAuth";
 import { useUser } from "../util/auth/useUser";
+import styles from '../styles/form.module.css';
 
 const Settings = () => {
   const [firstName, setFirstName] = useState("");
@@ -28,8 +29,8 @@ const Settings = () => {
   }
 
   return (
-    <div>
-        <form onSubmit={handleSetInfo}>
+    <div className={styles.main}>
+        <form onSubmit={handleSetInfo} className={styles.flexColumn}>
           <label>First Name</label>
           <input 
             onChange={(e) => setFirstName(e.target.value)} 

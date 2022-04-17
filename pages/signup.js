@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from '../util/firebase';
+import styles from '../styles/form.module.css';
+import Image from 'next/image'
+import logo from '../assets/logo.png'
 
 export default function SignUp() {
   console.log("AUTH", auth)
@@ -41,7 +44,7 @@ export default function SignUp() {
         .then(async (userCredential) => {
           create_user(userCredential)
           console.log("Success. The user is created in Firebase")
-          router.push("/");
+          router.push("/settings");
         })
         .catch(error => {
           // An error occurred. Set error message to be displayed to user
@@ -52,32 +55,47 @@ export default function SignUp() {
     };
 
   return (
-    <div>
-      <h1>Sign up!</h1>
+    <div className={styles.main}>
+      <Image 
+        src={logo} 
+        width={200}
+        height={200}/>
+      <h2>Sign up</h2>
       {error}
-      <form onSubmit={handleSignUp}>
+      <form onSubmit={handleSignUp} className={styles.flexColumn}>
           <label>Email</label>
-          <input 
-            onChange={(e) => setEmail(e.target.value)} 
-            value={email}
-            type="email" 
-            placeholder="Email">
-          </input>
+          <div className={styles.input_border}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              type="email" 
+              placeholder="Email">
+            </input>
+          </div>
           <label>Password</label>
-          <input 
-            onChange={(e) => setPasswordOne(e.target.value)} 
-            value={passwordOne}
-            type="password" 
-            placeholder="Password">
-          </input>
+          <div className={styles.input_border}>
+            <input
+              className={styles.field} 
+              onChange={(e) => setPasswordOne(e.target.value)} 
+              value={passwordOne}
+              type="password" 
+              placeholder="Password">
+            </input>
+          </div>
           <label>Confirm Password</label>
-          <input 
-            onChange={(e) => setPasswordTwo(e.target.value)} 
-            value={passwordTwo}
-            type="password" 
-            placeholder="Password">
-          </input>
-          <input type="submit"></input>
+          <div className={styles.input_border}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setPasswordTwo(e.target.value)} 
+              value={passwordTwo}
+              type="password" 
+              placeholder="Password">
+            </input>
+          </div>
+          <div className={styles.button_container}>
+            <button className = {styles.input_submit} type="submit">Submit</button>
+          </div>
         </form>
     </div>
 

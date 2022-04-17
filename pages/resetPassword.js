@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 import {auth} from '../util/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import Link from 'next/link';
+import styles from '../styles/form.module.css';
+import Image from 'next/image'
+import logo from '../assets/logo.png'
 
 export default function FirebaseAuth() {
   const [email, setEmail] = useState("");
@@ -14,7 +17,7 @@ export default function FirebaseAuth() {
     e.preventDefault();
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        setMessage("Check your email to reset your password")
+        setMessage("We have sent the reset password email")
       }).catch((error) => {
         setError(error.message)
         console.log("ERROR: ", error)
@@ -22,17 +25,29 @@ export default function FirebaseAuth() {
   }
 
   return (
-    <div>
+    <div className={styles.main}>
+      <h1>Ride Assured</h1>
+      <Image 
+        src={logo} 
+        width={200}
+        height={200}/>
+        <h2>Reset Password</h2>
         {error}
-        <form onSubmit={handleReset}>
+        {message}
+        <form onSubmit={handleReset} className={styles.flexColumn}>
           <label>Email</label>
-          <input 
-            onChange={(e) => setEmail(e.target.value)} 
-            value={email}
-            type="email" 
-            placeholder="Email">
-          </input>
-          <input type="submit"></input>
+          <div className={styles.input_border}>
+            <input 
+              className={styles.field}
+              onChange={(e) => setEmail(e.target.value)} 
+              value={email}
+              type="email" 
+              placeholder="Email">
+            </input>
+          </div>
+          <div className={styles.button_container}>
+            <button className = {styles.input_submit} type="submit">Submit</button>
+          </div>
         </form>
     </div>
   );
