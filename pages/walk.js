@@ -20,13 +20,9 @@ var pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY, {
 export default function Walk() {
     const { user } = useUser();
     const [driver, setDriver] = useState("")
-    console.log("IN WALK.JS")
     useEffect(() => {
-        console.log("IN USE EFFECT")
         if (!bound && user?.email) {
-            console.log("IN IF STATEMENT")
             const interval = setInterval(async () => {
-                console.log("INTERVAL CALL!")
                 const currLocation = await getLocation();
                 const response = await fetch('/api/update_pos', {
                     method: 'POST',
@@ -44,16 +40,27 @@ export default function Walk() {
                 setDriver(JSON.stringify(data))
             }) 
             bound = true;
-            return () => {
-                clearInterval(interval);
-            }
         }
     },[user])
 
+    async function a() {
+        const currLocation = await getLocation();
+        const response = await fetch('/api/update_pos', {
+            method: 'POST',
+            body: JSON.stringify({
+                email: user.email,
+                pos: currLocation
+            }),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+    }
 
     return (
         <div className={styles.container}>
             {driver}
+            <button onClick={a}>REE</button>
             <Nav />
         </div>
     )

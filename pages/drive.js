@@ -15,6 +15,8 @@ function Drive() {
                 if (!pedestrian) {
                     const currLocation = await getLocation();
                     const start1 = await getCoordsToString(currLocation.lat, currLocation.lng)
+                    console.log(currLocation)
+                    console.log(start1)
                     const response = await fetch('/api/get_detour', {
                         method: 'POST',
                         body: JSON.stringify({
@@ -39,10 +41,6 @@ function Drive() {
                 }
 
             }, 5000);
-            bound = true;
-            return () => {
-                clearInterval(interval);
-            }
         }
     },[user])
 
