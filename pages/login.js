@@ -4,6 +4,8 @@ import {auth} from '../util/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
+import Image from 'next/image'
+import logo from '../assets/logo.png'
 
 
 export default function FirebaseAuth() {
@@ -28,35 +30,35 @@ export default function FirebaseAuth() {
 
   return (
     <div className={styles.main}>
-      <img src="../assets/logo.png"></img>
+      <h1>Ride Assured</h1>
+      <Image 
+        src={logo} 
+        width={200}
+        height={200}/>
         {error}
-        <form onSubmit={handleLogin}>
-          <label>Email</label>
+        <form onSubmit={handleLogin} className={styles.flexColumn}>
           <input 
             onChange={(e) => setEmail(e.target.value)} 
             value={email}
             type="email" 
             placeholder="Email">
           </input>
-          <label>Password</label>
           <input 
             onChange={(e) => setPassword(e.target.value)} 
             value={password}
             type="password" 
             placeholder="Password">
           </input>
-          <input type="submit"></input>
+          <input className = {styles.input} type="submit"></input>
         </form>
         <p>
-          {"Don't have an account?"}
           <Link href="/signup">
             Sign Up
           </Link>
         </p>
         <p>
-          {"Forgot password "}
           <Link href="/resetPassword">
-            <a>Reset Password</a>
+            <a>Forgot Password?</a>
           </Link>
         </p>
     </div>
