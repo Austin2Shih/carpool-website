@@ -53,7 +53,6 @@ function Drive() {
 
     return (
         <div className={styles.container}>
-            {JSON.stringify(pedestrian)}
             {
                 user?.mongoData && 
                 <iframe className={styles.map} src={str} allowFullScreen></iframe>
