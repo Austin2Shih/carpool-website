@@ -23,6 +23,12 @@ export default async function handler(req, res) {
         console.log(`USER AT ${i}`, users[i])
         console.log("RATIO", ratio)
     }
+    if (maxRatio <= 0) {
+        res.json({
+            data: null
+        })
+    } else {
+        res.json(users[maxUserIndex]);
+    }
 
-    res.json(users[maxUserIndex]);
 }

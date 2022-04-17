@@ -12,6 +12,6 @@ export default async function handler(req, res) {
   const data = req.body
   const user = data.user
 
-  await pusher.trigger('carpool-app', `found-driver-${user.email}`, {user}).then((r) => {})
+  pusher.trigger('carpool-app', `found-driver-${user.email}`, {user}).then((r) => {})
   res.json(user);
 }
