@@ -53,7 +53,7 @@ const Index = () => {
             method: 'POST',
             body: JSON.stringify({
                 "email": user.email,
-                "destStr": searchTerm,
+                "dest": searchTerm,
                 "state": "driving"
             }),
             headers: {
@@ -69,7 +69,7 @@ const Index = () => {
             method: 'POST',
             body: JSON.stringify({
                 "email": user.email,
-                "destStr": searchTerm,
+                "dest": searchTerm,
                 "state": "walking"
             }),
             headers: {
