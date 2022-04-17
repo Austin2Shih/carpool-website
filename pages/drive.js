@@ -43,8 +43,10 @@ function Drive() {
 
     return (
         <div className={styles.main}>
-            <div className={styles.nav}>
-                {JSON.stringify(pedestrian)}
+            <div className={styles.nav} >
+                <div className={styles.flexColumn}>
+                    {JSON.stringify(pedestrian)}
+                </div>
                 <Nav/>
             </div>
         </div>
